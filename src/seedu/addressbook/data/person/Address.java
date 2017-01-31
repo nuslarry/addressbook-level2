@@ -1,6 +1,8 @@
 package seedu.addressbook.data.person;
 
-import seedu.addressbook.data.person.AddressBlock;+import seedu.addressbook.data.person.AddressStreet;+import seedu.addressbook.data.person.AddressUnit;+
+import seedu.addressbook.data.person.AddressBlock;
+import seedu.addressbook.data.person.AddressStreet;
+import seedu.addressbook.data.person.AddressUnit;
 import seedu.addressbook.data.person.AddressPostalCode;
 import seedu.addressbook.data.exception.IllegalValueException;
 
@@ -34,6 +36,10 @@ public class Address {
         if (!isValidAddress(addressElements)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
+        this.addressBlock = new AddressBlock(addressElements[0]);
+        this.addressStreet = new AddressStreet(addressElements[1]);
+        this.addressUnit = new AddressUnit(addressElements[2]);
+        this.addressPostalCode = new AddressPostalCode(addressElements[3]);
         this.value = trimmedAddress;
     }
 
@@ -71,6 +77,7 @@ public class Address {
     public boolean isPrivate() {
         return isPrivate;
     }
+	   public String getAddressBlock() {
     	return addressBlock.getValue();
     }
     
