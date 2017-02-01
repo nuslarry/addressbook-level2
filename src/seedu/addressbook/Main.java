@@ -12,7 +12,7 @@ import seedu.addressbook.ui.TextUi;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
+import java.io.File;
 
 /**
  * Entry point of the Address Book application.
@@ -81,10 +81,19 @@ public class Main {
         Command command;
         do {
             String userCommandText = ui.getUserCommand();
-            command = new Parser().parseCommand(userCommandText);
-            CommandResult result = executeCommand(command);
-            recordResult(result);
-            ui.showResultToUser(result);
+		try {
+ 			File storageFile = new File(StorageFile.DEFAULT_STORAGE_FILEPATH);
+ 				if (!storageFile.isFile()) {
+ 					throw new FileMissingException(StorageFile.MISSING_FILE_MESSAGE);
+ 				}
+ 			} catch (FileMissingException e) {
+ 				System.out.println("File is missing.");
+ 				exit();
+ 		}
+        command = new Parser().parseCommand(userCommandText);
+        CommandResult result = executeCommand(command);
+        recordResult(result);
+        ui.showResultToUser(result);
 
         } while (!ExitCommand.isExit(command));
     }
