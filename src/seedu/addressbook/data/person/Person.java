@@ -84,4 +84,18 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+	public String getPrintableString() {
+		return getPrintableString(this.name, this.phone, this.email, this.address);
+	}
+	
+	//Printable is an interface ,name,phone,email,address implement it
+	private String getPrintableString(Printable... printables) {
+		String returnString = printables[0].getPrintableString();
+		for (int count = 1; count < printables.length; count++) {
+			returnString = returnString + ", " + printables[count].getPrintableString();
+		}
+		return returnString;
+	}
+
+
 }
